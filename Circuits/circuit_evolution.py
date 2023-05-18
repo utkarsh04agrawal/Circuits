@@ -30,6 +30,9 @@ def oddlayer(state,U_list,L,BC='PBC'):
     return state
 
 
+
+
+
 def measurement_layer(state,m_locations,rng_outcome: np.random.default_rng):
     for m in m_locations:
         state = np.swapaxes(state,m,0)
@@ -56,12 +59,8 @@ def weak_measurement_layer(state,theta,L:int,rng_outcome: np.random.default_rng,
     """To implement exp{-i*theta/2 [1-Z_q]X_qa} = exp{-i*theta X_qa/2} exp{i*theta/2 Z_q*X_qa} on physical qubits. This performs weak measurement.
 
     Args:
-        circ (_type_): quantum circuit
-        ancilla (_type_): ancilla qubit to be used for measurement
-        p_qbit (_type_): list of physical qubits
         theta (_float): measurement strength. theta = 0: no measurement. theta=pi/2: projective measurement
         L (_int): system size
-        t (int): time step
         m_locations (list): measurement_locations. Default: measure all locations
 
     Returns:
