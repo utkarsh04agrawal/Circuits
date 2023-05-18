@@ -1,6 +1,6 @@
 This is a package to run quantum circuits using numpy tensor structure.
 
-I followed this reference to learn to build a python package. https://changhsinlee.com/python-package/
+Followed this reference to learn to build a python package. https://changhsinlee.com/python-package/
 
 # Structure
 Circuits/
