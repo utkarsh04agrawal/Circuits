@@ -1,4 +1,3 @@
-
 import numpy as np
 L_max = 60
 T_max = 300
@@ -13,6 +12,7 @@ def evenlayer(state,U_list,L):
         state = np.moveaxis(state,0,i//2)
     state = state.reshape((2,)*(L+L_A))
     return state
+
 
 def oddlayer(state,U_list,L,BC='PBC'):
     L_A = len(state.shape) - L

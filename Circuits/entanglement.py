@@ -1,11 +1,5 @@
 import time
 import numpy as np
-import pickle
-import matplotlib.pyplot as pl
-import itertools
-import Level_statistics
-import importlib
-importlib.reload(Level_statistics)
 
 
 def configuration_to_index(confi):
