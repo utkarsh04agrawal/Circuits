@@ -118,6 +118,7 @@ def generalized_measurement(state: np.ndarray,kraus_operators: list, location: l
     return new_state, outcome
 
 def measurement_layer(state,m_locations,rng_outcome: np.random.default_rng):
+    outcomes = []
     for m in m_locations:
         state = np.swapaxes(state,m,0)
         p_0 = np.sum(np.abs(state[0,:])**2)
@@ -134,8 +135,8 @@ def measurement_layer(state,m_locations,rng_outcome: np.random.default_rng):
         S = np.sum(np.abs(state.flatten())**2)
         state = state/S**0.5
         state = np.swapaxes(state,0,m)
-    
-    return state
+        outcomes.append(outcome)
+    return state, outcomes
 
 
 
@@ -153,6 +154,7 @@ def weak_measurement_layer(state,theta,L:int,rng_outcome: np.random.default_rng,
     if m_locations is None:
         m_locations = list(range(L))
     
+    outcomes = []
     ## Implementing weak measurement
     for m in m_locations:
         state = np.swapaxes(state,m,0)
@@ -171,6 +173,7 @@ def weak_measurement_layer(state,theta,L:int,rng_outcome: np.random.default_rng,
         S = np.sum(np.abs(state.flatten())**2)
         state = state/S**0.5
         state = np.swapaxes(state,0,m)
-    return state
+        outcomes.append(outcome)
+    return state, outcomes
 
 
