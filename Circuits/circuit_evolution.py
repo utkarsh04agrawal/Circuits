@@ -27,7 +27,7 @@ def oddlayer(state,U_list,L,BC='PBC'):
     return state
 
 
-def non_local_gate(state: np.ndarray,M: np.ndarray, location: list):
+def generic_gate(state: np.ndarray,M: np.ndarray, location: list):
     """Perform non_local gate which may or maynot be unitary
 
     Args:
@@ -54,7 +54,6 @@ def non_local_gate(state: np.ndarray,M: np.ndarray, location: list):
 
     new_state = np.tensordot(M,state,axes=(-1,0))
     norm = np.sum(np.abs(new_state)**2)
-
     # Keeping the state same as in the input!
     new_state = np.reshape(new_state,(2,)*L)/norm**0.5
     state = np.reshape(state,(2,)*L)
@@ -84,7 +83,7 @@ def generalized_measurement(state: np.ndarray,kraus_operators: list, location: l
 
     assert location == sorted(location), print('Locations provided must be sorted in ascending order')
 
-    assert L>1, print("Shape of state has only one axis. state should have (2,)*L where L is the system size")
+    assert L>1, print("Shape of state has only one axis. state should have shape (2,)*L where L is the system size")
     assert np.all([i.shape == (measurement_dim,measurement_dim) for i in kraus_operators]), print("Kraus operators are of not same dimension")
     assert int(2**num_of_sites) == int(measurement_dim), print('Number of location points don\'t match with Kraus operators dimension')
 
@@ -97,7 +96,7 @@ def generalized_measurement(state: np.ndarray,kraus_operators: list, location: l
     norm = np.zeros((measurement_dim,measurement_dim))
     for K in kraus_operators:
         norm += np.dot(np.transpose(np.conj(K)),K)
-    assert norm/norm[0,0] == np.identity(measurement_dim), print('POVM not properly defined. The POVMs normalize to %'.format(norm))
+    assert np.all(np.round(norm/norm[0,0],10) == np.identity(measurement_dim)), print('POVM not properly defined. The POVMs normalize to %'.format(norm))
 
     random_number = rng.uniform(0,1)
     cum_probs = 0
